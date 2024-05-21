@@ -1,50 +1,7 @@
-document.querySelector(".menu-btn").addEventListener("click", () => {
-    document.querySelector(".nav-menu").classList.toggle("show");
-});
-
 ScrollReveal().reveal('.showcase');
 ScrollReveal().reveal('.news-cards', { delay: 500 });
 ScrollReveal().reveal('.cards-banner-one', { delay: 500 });
 ScrollReveal().reveal('.cards-banner-two', { delay: 500 });
-
-
-// FUNCION PARA MOSTRAR Y OCULTAR NAVBAR
-document.addEventListener('DOMContentLoaded', function() {
-    const searchIcon = document.querySelector('.nav-menu-right a .search-icon');
-    const closeIcon = document.querySelector('.nav-menu-right a .close-icon');
-    const searchInput = document.querySelector('.searchInput');
-    const navMenu = document.querySelector('.nav-menu');
-    const searchContainer = document.querySelector('.nav-menu-right a');
-
-    searchContainer.addEventListener('click', function(event) {
-        event.preventDefault();
-
-        // Comprobar el tamaño de la ventana para decidir sobre la visibilidad del nav-menu
-        const isMobile = window.innerWidth <= 700;
-
-        // Toggle the visibility of the search input and handle nav-menu for non-mobile devices
-        if (searchInput.style.display === 'none' || searchInput.style.display === '') {
-            searchInput.style.display = 'block';
-            searchInput.focus();
-            searchIcon.style.display = 'none';
-            closeIcon.style.display = 'block';
-
-            // Only hide nav-menu on non-mobile devices when search is active
-            if (!isMobile) {
-                navMenu.style.display = 'none';
-            }
-        } else {
-            searchInput.style.display = 'none';
-            searchIcon.style.display = 'block';
-            closeIcon.style.display = 'none';
-
-                // Only show nav-menu on non-mobile devices when search is not active
-                if (!isMobile) {
-                navMenu.style.display = 'flex';
-                }
-        }
-    });
-});
 
 const apiKey = '8fc6900bb6bd4b6197f389a0e186b130'; // 
 const apiUrl = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`;
@@ -75,7 +32,7 @@ function displayShowcaseNews(article) {
     showcase.innerHTML = `
         <h2>${article.title}</h2>
         <p>${article.description || 'Descripción no disponible'}</p>
-        <a href="${article.url}" class="btn" target="_blank">Leer más <i class="fas         fa-chevron-right"></i></a>
+        <a href="${article.url}" class="btn" target="_blank">Leer más <i class="fas fa-chevron-right"></i></a>
     `;
 }
 
@@ -83,9 +40,9 @@ function displayNewsCards(articles) {
     const newsCards = document.querySelector('.news-cards');
     newsCards.classList.remove('visible'); // Ocultar inicialmente
 
-    setTimeout(() => {
-      newsCards.innerHTML = ''; // Limpiar el contenido existente
-      articles.forEach(article => {
+setTimeout(() => {
+    newsCards.innerHTML = ''; // Limpiar el contenido existente
+    articles.forEach(article => {
         const newsItem = document.createElement('div');
         newsItem.classList.add('news-item');
 
@@ -111,7 +68,7 @@ function displayNewsCards(articles) {
         newsItem.appendChild(description);
         newsItem.appendChild(link);
         newsCards.appendChild(newsItem);
-      });
+});
 
       newsCards.classList.add('visible'); // Mostrar con retraso
     }, 500); // Retraso de 500 ms (ajusta según tus necesidades)
@@ -127,34 +84,26 @@ function displayPagination(category = '') {
     prevButton.classList.toggle('disabled', currentPage === 1);
     prevButton.disabled = currentPage === 1;
     prevButton.addEventListener('click', () => {
-      if (currentPage > 1) {
+    if (currentPage > 1) {
         currentPage--;
         fetchNews(currentPage, category);
-      }
-    });
+    }
+});
 
     const nextButton = document.createElement('button');
     nextButton.textContent = 'Siguiente';
     nextButton.classList.toggle('disabled', currentPage === totalPages);
     nextButton.disabled = currentPage === totalPages;
     nextButton.addEventListener('click', () => {
-      if (currentPage < totalPages) {
+    if (currentPage < totalPages) {
         currentPage++;
         fetchNews(currentPage, category);
-      }
-    });
+    }
+});
 
     pagination.appendChild(prevButton);
     pagination.appendChild(nextButton);
 }
-
-document.getElementById('general').addEventListener('click', (e) => {
-    e.preventDefault();
-    currentCategory = ''; // Establecer categoría a general
-    currentPage = 1;
-    fetchNews(currentPage, currentCategory);
-    document.getElementById('news-cards').scrollIntoView({ behavior: 'smooth' });
-});
 
 document.getElementById('negocios').addEventListener('click', (e) => {
     e.preventDefault();

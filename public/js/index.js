@@ -1,9 +1,10 @@
-const apiKey = '8fc6900bb6bd4b6197f389a0e186b130'; 
-const pageSize = 5;
-let currentPage = 1;
-let totalResults = 0;
-let currentCategory = '';
+const apiKey = '8fc6900bb6bd4b6197f389a0e186b130'; // Clave
+const pageSize = 5; // Total de paginas
+let currentPage = 1; // Variable de pagina actual
+let totalResults = 0; 
+let currentCategory = ''; 
 
+// PETICION AL ENDPOINT
 async function fetchNews(page, category = '') {
     const apiUrl = `https://newsapi.org/v2/top-headlines?country=us&pageSize=${pageSize}&page=${page}&category=${category}&apiKey=${apiKey}`;
     
@@ -26,6 +27,7 @@ async function fetchNews(page, category = '') {
     }
 }
 
+// FUNCION DE BUSQUEDA
 async function searchNews(query) {
     const apiUrl = `https://newsapi.org/v2/everything?q=${query}&pageSize=${pageSize}&apiKey=${apiKey}`;
     
@@ -46,7 +48,7 @@ async function searchNews(query) {
     }
 }
 
-// Añadir el evento de entrada en el campo de búsqueda
+// EVENTO ENTRADA DE INPUT
 document.getElementById('search').addEventListener('input', (e) => {
     const query = e.target.value;
     if (query.length > 2) { // Buscar si la longitud de la consulta es mayor que 2 caracteres
@@ -56,6 +58,7 @@ document.getElementById('search').addEventListener('input', (e) => {
     }
 });
 
+// FUNCION PARA MOSTRAR EN EL CONTENEDOR DE SHOWCASE
 function displayShowcaseNews(article) {
     const showcase = document.querySelector('.showcase');
     showcase.style.backgroundImage = `url('${article.urlToImage || '/images/not-available.png'}')`;
@@ -66,6 +69,7 @@ function displayShowcaseNews(article) {
     `;
 }
 
+// FUNCION PARA MOSTRAR CONTENIDO DE LAS NOTICIAS
 function displayNewsCards(articles) {
     const newsCards = document.querySelector('.news-cards');
     newsCards.classList.remove('visible');
@@ -104,6 +108,7 @@ function displayNewsCards(articles) {
     }, 500);
 }
 
+// FUNCION DE PAGINACION
 function displayPagination(category = '') {
     const pagination = document.getElementById('pagination');
     pagination.innerHTML = '';

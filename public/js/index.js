@@ -2,11 +2,12 @@ const apiKey = '8fc6900bb6bd4b6197f389a0e186b130'; // Clave
 const pageSize = 5; // Total de paginas
 let currentPage = 1; // Variable de pagina actual
 let totalResults = 0; 
-let currentCategory = ''; 
+let currentCategory = '';
+let country = 'us';
 
 // PETICION AL ENDPOINT
 async function fetchNews(page, category = '') {
-    const apiUrl = `https://newsapi.org/v2/top-headlines?country=us&pageSize=${pageSize}&page=${page}&category=${category}&apiKey=${apiKey}`;
+    const apiUrl = `https://newsapi.org/v2/top-headlines?country=${country}&pageSize=${pageSize}&page=${page}&category=${category}&apiKey=${apiKey}`;
     
     // Mostrar loader
     document.getElementById('loader').style.display = 'block';
@@ -48,13 +49,22 @@ async function searchNews(query) {
     }
 }
 
-// EVENTO ENTRADA DE INPUT
+// EVENTO ENTRADA DE INPUT PARA BÚSQUEDA EN TIEMPO REAL
 document.getElementById('search').addEventListener('input', (e) => {
     const query = e.target.value;
     if (query.length > 2) { // Buscar si la longitud de la consulta es mayor que 2 caracteres
         searchNews(query);
     } else {
         fetchNews(currentPage, currentCategory); // Si la consulta es menor, mostrar noticias principales
+    }
+});
+
+// EVENTO DE CLIC EN EL BOTÓN DE BÚSQUEDA
+document.querySelector('form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const query = document.getElementById('search').value;
+    if (query.length > 2) { // Buscar si la longitud de la consulta es mayor que 2 caracteres
+        searchNews(query);
     }
 });
 
@@ -82,20 +92,20 @@ function displayNewsCards(articles) {
 
             const img = document.createElement('img');
             img.src = article.urlToImage || '/images/not-available.png';
-            img.alt = article.title;
+            img.alt = article.title || 'No disponible';
 
             const title = document.createElement('h3');
             title.classList.add('news-title');
-            title.textContent = article.title;
+            title.textContent = article.title || 'Título no disponible';
 
             const description = document.createElement('p');
             description.classList.add('news-description');
             description.textContent = article.description || 'Descripción no disponible';
 
             const link = document.createElement('a');
-            link.href = article.url;
+            link.href = `details.html?title=${encodeURIComponent(article.title)}&description=${encodeURIComponent(article.description)}&urlToImage=${encodeURIComponent(article.urlToImage)}`;
             link.textContent = 'Leer más';
-            link.target = '_blank';
+            link.target = '_self';
 
             newsItem.appendChild(img);
             newsItem.appendChild(title);
@@ -107,6 +117,8 @@ function displayNewsCards(articles) {
         newsCards.classList.add('visible');
     }, 500);
 }
+
+
 
 // FUNCION DE PAGINACION
 function displayPagination(category = '') {

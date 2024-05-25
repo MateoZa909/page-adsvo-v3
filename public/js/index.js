@@ -1,7 +1,7 @@
-const apiKey = '8fc6900bb6bd4b6197f389a0e186b130'; // Clave
-const pageSize = 5; // Total de paginas
-let currentPage = 1; // Variable de pagina actual
-let totalResults = 0; 
+const apiKey = '8fc6900bb6bd4b6197f389a0e186b130';
+const pageSize = 9;
+let currentPage = 1;
+let totalResults = 0;
 let currentCategory = '';
 let country = 'us';
 
@@ -103,7 +103,7 @@ function displayNewsCards(articles) {
             description.textContent = article.description || 'Descripción no disponible';
 
             const link = document.createElement('a');
-            link.href = `details.html?title=${encodeURIComponent(article.title)}&description=${encodeURIComponent(article.description)}&urlToImage=${encodeURIComponent(article.urlToImage)}`;
+            link.href = `details.html?title=${encodeURIComponent(article.title)}&description=${encodeURIComponent(article.description)}&urlToImage=${encodeURIComponent(article.urlToImage)}&url=${encodeURIComponent(article.url)}`;
             link.textContent = 'Leer más';
             link.target = '_self';
 
@@ -117,8 +117,6 @@ function displayNewsCards(articles) {
         newsCards.classList.add('visible');
     }, 500);
 }
-
-
 
 // FUNCION DE PAGINACION
 function displayPagination(category = '') {

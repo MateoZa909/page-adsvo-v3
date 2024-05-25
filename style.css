@@ -317,6 +317,85 @@ footer .mail-wasa p {
     opacity: 1;
 }
 
+/* MODAL INICIO SESION */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background-color: #eaeaea;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+    border-radius: 5px;
+    border-radius: 10px;
+}
+
+.forms {
+    /* background-color: lightcoral; */
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.forms input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid gray;
+    outline: none;
+}
+
+.btn-login:hover,
+.btn-register:hover {
+    background-color: rgb(28, 28, 28);
+    color: white;
+}
+
+.box-ps {
+    /* background-color: lightgray; */
+    margin-top: 7px;
+}
+
+.account a {
+    color: #3498db;
+}
+
+.keep a {
+    color: #0069ae;
+}
+
+.box-ps a {
+    text-decoration: none;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.modal-content p,a {
+    color: black;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
 /* Movil */
 @media (max-width: 700px) {
     .menu-btn {

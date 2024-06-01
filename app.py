@@ -1,25 +1,27 @@
-from flask import Flask, request, jsonify
 import requests
-from bs4 import BeautifulSoup
 
-app = Flask(__name__)
+# Define la URL de la API y tu clave de API
+url = "https://newsapi.org/v2/everything"
+api_key = "8fc6900bb6bd4b6197f389a0e186b130"
 
-@app.route('/get_article', methods=['GET'])
-def get_article():
-    api_key = '8fc6900bb6bd4b6197f389a0e186b130'
-    article_url = request.args.get('url')
+# Define los parámetros de la solicitud
+params = {
+    'q': 'término de búsqueda',  # Cambia esto por el término de búsqueda que desees
+    'apiKey': api_key,
+}
 
-    if not article_url:
-        return jsonify({'error': 'URL is required'}), 400
+# Realiza la solicitud GET a la API
+response = requests.get(url, params=params)
 
-    article_response = requests.get(article_url)
-    article_soup = BeautifulSoup(article_response.content, 'html.parser')
+# Verifica si la solicitud fue exitosa
+if response.status_code == 200:
+    data = response.json()
     
-    # Try to find the main content of the article
-    paragraphs = article_soup.find_all('p')
-    full_text = ' '.join([p.get_text() for p in paragraphs])
+    # Itera sobre los artículos y extrae el contenido
+    for article in data['articles']:
+        content = article.get('content', 'No content available')
+        print(f"Contenido = {content}")
+else:
+    print(f"Error: {response.status_code}")
 
-    return jsonify({'content': full_text})
 
-if __name__ == '__main__':
-    app.run(debug=True)

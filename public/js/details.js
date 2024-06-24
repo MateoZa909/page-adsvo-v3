@@ -9,8 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('news-details').innerHTML = `
         <h1>${title}</h1>
         <img src="${urlToImage || 'images/not-available.png'}" alt="${title}" class="img-fluid">
-        <p>${description}</p>
-        <p>${content || 'Contenido no disponible'}</p>
+        <p style="color: #000" class="desc">${description}</p>
         <a href="${url}" class="btn btn-primary" target="_blank">Leer artículo completo</a>
     `;
 

@@ -74,7 +74,7 @@ function displayShowcaseNews(article) {
     showcase.style.backgroundImage = `url('${article.urlToImage || '/images/not-available.png'}')`;
     showcase.innerHTML = `
         <h2>${article.title}</h2>
-        <p>${article.description || 'Descripción no disponible'}</p>
+        <p>${article.description || 'Descripción no disponible'}< style="color: black"/p>
         <a href="${article.url}" class="btn" target="_blank">Leer más <i class="fas fa-chevron-right"></i></a>
     `;
 }
@@ -100,6 +100,7 @@ function displayNewsCards(articles) {
 
             const description = document.createElement('p');
             description.classList.add('news-description');
+            description.style.color = 'black'
             description.textContent = article.description || 'Descripción no disponible';
 
             const link = document.createElement('a');

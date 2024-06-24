@@ -2,7 +2,19 @@ let isLogin = false;
 const modal = document.getElementById("myModal"); // Modal registro login
 const nameUser = document.getElementById("name-user"); 
 const btnLogout = document.getElementById("log-out"); 
+const loginLink = document.querySelector('#btn-signin');
 let userRecord = {};
+
+// Función para abrir el modal
+function openModal() {
+  modal.style.display = "flex";
+}
+
+// Manejador de evento para el enlace "Iniciar sesión"
+loginLink.addEventListener('click', function(event) {
+  event.preventDefault(); // Evita el comportamiento por defecto del enlace
+  openModal(); // Abre el modal
+});
 
 // Peticion al endpoint de login
 document.getElementById('loginFormElement').addEventListener('submit', async function(event) {
@@ -35,15 +47,17 @@ document.getElementById('loginFormElement').addEventListener('submit', async fun
       if (result.error) {
         alert(result.message);
       } else {
+        // Guardar la información del usuario en localStorage
+        localStorage.setItem('user', JSON.stringify(result.user));
         isLogin = true;
         modal.style.display = 'none';
         userRecord = result.user;
-        nameUser.innerHTML = `${userRecord.nombre_usuario}`
+        nameUser.innerHTML = `${userRecord.nombre_usuario}`;
         // Puedes redirigir al usuario o realizar otras acciones aquí
       }
     } catch (error) {
-      console.error('Error al registrar:', error);
-      alert('Ocurrió un error al registrar. Inténtalo de nuevo.');
+      // console.error('Error al registrar:', error);
+      // alert('Ocurrió un error al registrar. Inténtalo de nuevo.');
     }
 });
 
@@ -82,13 +96,13 @@ document.getElementById('registerFormElement').addEventListener('submit', async 
       if (result.error) {
         alert(result.message);
       } else {
-        console.log('Entro aqui');
-        alert('Registro exitoso!');
-        // Puedes redirigir al usuario o realizar otras acciones aquí
+        alert('Registro exitoso!')
+        userRecord = result.user;
+        nameUser.innerHTML = `${userRecord.nombre_usuario}`;
       }
     } catch (error) {
-      console.error('Error al registrar:', error);
-      alert('Ocurrió un error al registrar. Inténtalo de nuevo.');
+      // console.error('Error al registrar:', error);
+      // alert('Ocurrió un error al registrar. Inténtalo de nuevo.');
     }
 });
 
@@ -126,12 +140,6 @@ window.onclick = function(event) {
     if (event.target === modal) {
         modal.style.display = "none";
     }
-}
-
-function showModal(message) {
-    const modalMessage = document.getElementById("modalMessage");
-    modalMessage.textContent = message;
-    modal.style.display = "block";
 }
 
 function closeModal() {

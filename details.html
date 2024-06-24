@@ -53,10 +53,10 @@
                         <span id="name-user"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end bg-dark">
-                        <li><a class="dropdown-item text-white" href="#">Profile</a></li>
-                        <li><a class="dropdown-item text-white" href="#">Settings</a></li>
+                        <<li><a class="dropdown-item text-white"  id="btn-signin">Iniciar sesión</a></li>
+                        <!-- <li><a class="dropdown-item text-white" href="#">Settings</a></li> -->
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item text-white" href="#" id="log-out">Logout</a></li>
+                        <li><a class="dropdown-item text-white" href="#" id="log-out">Cerrar sesión</a></li>
                     </ul>
                 </div>
             </div>
@@ -78,9 +78,38 @@
             <!-- Aquí se mostrarán las noticias por categoría -->
         </div>
     </div>
-    <script>
-        
-    </script>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="container" id="loginForm">
+                <h2>Login</h2>
+                <form id="loginFormElement" method="POST" class="forms">
+                    <input type="email" id="loginEmail" placeholder="Email" required>
+                    <input type="password" id="loginPassword" placeholder="Password" required>
+                    <button class="btn-login" type="submit">Login</button>
+                </form>
+                <div class="box-ps">
+                    <p class="account">No tienes una cuenta? <a href="#" onclick="toggleForms()">Regístrate aquí</a></p>
+                    <p class="keep"><a href="#" onclick="closeModal()">Seguir navegando sin registrarse</a></p>
+                </div>
+            </div>
+            <div class="container" id="registerForm" style="display:none;">
+                <h2>Registro</h2>
+                <form id="registerFormElement" method="POST" class="forms">
+                    <input type="text" id="registerNombres" name="nombres" placeholder="Nombres" required>
+                    <input type="text" id="registerNombreUsuario" name="nombre_usuario" placeholder="Nombre de Usuario" required>
+                    <input type="email" id="registerEmail" name="email" placeholder="Email" required>
+                    <input type="password" id="registerPassword" name="contrasena" placeholder="Password" required>
+                    <button type="submit" onclick="" class="btn-register">Registrar</button>
+                </form>
+                <div class="box-ps">
+                    <p class="account">Ya tienes una cuenta? <a href="#" onclick="toggleForms()">Inicia sesión aquí</a></p>
+                    <p class="keep"><a href="#" onclick="closeModal()">Seguir navegando sin registrarse</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="/public/js/index.js"></script>
     <script src="/public/js/details.js"></script>

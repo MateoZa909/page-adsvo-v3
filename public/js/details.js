@@ -67,7 +67,7 @@ async function fetchNewsByCategory(category, categoryName) {
     pagination.classList.add('pagination');
 
     const prevButton = document.createElement('button');
-    prevButton.textContent = 'Anterior';
+    prevButton.textContent = '';
     prevButton.classList.add('btn', 'btn-outline-secondary');
     prevButton.disabled = data.page === 1;
     prevButton.addEventListener('click', () => {
@@ -77,7 +77,7 @@ async function fetchNewsByCategory(category, categoryName) {
     });
 
     const nextButton = document.createElement('button');
-    nextButton.textContent = 'Siguiente';
+    nextButton.textContent = '';
     nextButton.classList.add('btn', 'btn-outline-secondary');
     nextButton.disabled = data.page === Math.ceil(data.totalResults / pageSize);
     nextButton.addEventListener('click', () => {
@@ -93,3 +93,54 @@ async function fetchNewsByCategory(category, categoryName) {
     categorySection.appendChild(pagination);
     document.getElementById('category-news').appendChild(categorySection);
 }
+
+// Recupera la información del usuario del localStorage
+document.addEventListener('DOMContentLoaded', (event) => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user && user.nombre_usuario) {
+        document.getElementById('name-user').textContent = user.nombre_usuario;
+    }
+});
+
+const modal = document.getElementById("myModal"); // Modal registro login
+const loginLink = document.querySelector('#btn-signin');
+
+// Función para abrir el modal
+function openModal() {
+    modal.style.display = "flex";
+}
+
+function closeModal() {
+    modal.style.display = "none";
+}
+
+// Modal handling
+const span = document.getElementsByClassName("close")[0];
+span.onclick = function() {
+    modal.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+
+// Evento cierre Modal
+document.getElementById('registerFormElement').addEventListener('submit', function(event) {
+    event.preventDefault();
+    // Simulate registration request
+    // alert('Registro exitoso!');
+    closeModal();
+});
+
+// Manejador de evento para el enlace "Iniciar sesión"
+loginLink.addEventListener('click', function(event) {
+    event.preventDefault(); // Evita el comportamiento por defecto del enlace
+    openModal(); // Abre el modal
+});
+
+// Manejador de evento para el enlace "Iniciar sesión"
+document.getElementById('btn-signin').addEventListener('click', function(event) {
+    event.preventDefault(); // Evita el comportamiento por defecto del enlace
+    openModal(); // Abre el modal
+});

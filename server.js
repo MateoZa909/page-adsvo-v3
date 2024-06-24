@@ -64,6 +64,7 @@ app.post('/register', async (req, res) => {
     } catch (err) {
         console.error('Error al registrar el usuario:', err);
         res.status(500).json({ message: 'Error al registrar el usuario' });
+        console.log(err);
     }
 });
 
